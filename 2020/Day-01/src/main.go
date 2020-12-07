@@ -10,7 +10,7 @@ import (
 )
 
 /*	readInput
-	Read the filename input and returns a list of numbers.
+	Read the filename and returns a list.
 */
 func readInput(filename string)([]int, error) {
 	file, err := os.Open(filename)
@@ -91,7 +91,7 @@ func checkEntriesPartTwo(entries []int)(int, error) {
 }
 
 func main() {
-	numbers, err := readInput("input.txt")
+	numbers, err := readInput("input.txt.txt")
 	if err != nil {
 		log.Fatalln(err)
 	}
