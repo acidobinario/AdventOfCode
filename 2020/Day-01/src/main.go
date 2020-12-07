@@ -36,24 +36,55 @@ func readInput(filename string)([]int, error) {
 }
 
 /*	checkEntries
-	Finds the two entries that sum to 2020 and then multiplies the two numbers together and returns the product.
+	Finds the two entries that sum 2020 and then multiplies the two numbers together and returns the product.
 */
 func checkEntries(entries []int)(int, error) {
-	for y, x := 0, 1; y < len(entries) - 2; {
-		if entries[y] + entries[x] == 2020 {
-			fmt.Println("The values are", entries[y], "and", entries[x])
+	for x, y := 0, 1; x < len(entries) - 2; {
+		if entries[x] + entries[y] == 2020 {
+			fmt.Println("The values are", entries[x], "and", entries[y])
 
-			return entries[y] * entries[x], nil
+			return entries[x] * entries[y], nil
 		}
 
-		if x == len(entries) - 1 {
-			y++
-			x = y + 1
+		if y == len(entries) - 1 {
+			x++
+			y = x + 1
 
 			continue
 		}
 
-		x++
+		y++
+	}
+
+	return 0, errors.New("couldn't find the required values")
+}
+
+/*	checkEntriesPartTwo
+	Finds the three entries that sum 2020 and then multiplies the three numbers together and returns the product.
+*/
+func checkEntriesPartTwo(entries []int)(int, error) {
+	for x, y, z := 0, 1, 2; x < len(entries) - 3; {
+		if entries[x] + entries[y] + entries[z] == 2020 {
+			fmt.Println("The values are", entries[x], ",", entries[y], "and", entries[z])
+
+			return entries[x] * entries[y] * entries[z], nil
+		}
+
+		if y == len(entries) - 2 && z == len(entries) - 1 {
+			x++
+			y = x + 1
+			z = y + 1
+
+			continue
+		}
+
+		if z == len(entries) - 1 {
+			y++
+			z = y + 1
+			continue
+		}
+
+		z++
 	}
 
 	return 0, errors.New("couldn't find the required values")
@@ -71,4 +102,11 @@ func main() {
 	}
 
 	fmt.Println(answer)
+
+	answerTwo, err := checkEntriesPartTwo(numbers)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	fmt.Println(answerTwo)
 }
