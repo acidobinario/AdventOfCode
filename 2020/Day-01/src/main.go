@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"strconv"
 )
 
@@ -13,9 +14,13 @@ import (
 	Read the filename and returns a list.
 */
 func readInput(filename string) ([]int, error) {
-	file, err := os.Open(filename)
+	filePath, err := filepath.Abs(filename)
 	if err != nil {
-		return []int{}, err
+		return nil, err
+	}
+	file, err := os.Open(filePath)
+	if err != nil {
+		return nil, err
 	}
 
 	scanner := bufio.NewScanner(file)
@@ -26,7 +31,7 @@ func readInput(filename string) ([]int, error) {
 	for scanner.Scan() {
 		i, err := strconv.Atoi(scanner.Text())
 		if err != nil {
-			return []int{}, err
+			return nil, err
 		}
 
 		numbers = append(numbers, i)
@@ -41,7 +46,7 @@ func readInput(filename string) ([]int, error) {
 func checkEntries(entries []int) (int, error) {
 	for x, y := 0, 1; x < len(entries)-2; {
 		if entries[x]+entries[y] == 2020 {
-			fmt.Println("The values are", entries[x], "and", entries[y])
+			fmt.Printf("The values are %d and %d\n", entries[x], entries[y])
 
 			return entries[x] * entries[y], nil
 		}
@@ -65,7 +70,7 @@ func checkEntries(entries []int) (int, error) {
 func checkEntriesPartTwo(entries []int) (int, error) {
 	for x, y, z := 0, 1, 2; x < len(entries)-3; {
 		if entries[x]+entries[y]+entries[z] == 2020 {
-			fmt.Println("The values are", entries[x], ",", entries[y], "and", entries[z])
+			fmt.Printf("The values are %d, %d and %d\n", entries[x], entries[y], entries[z])
 
 			return entries[x] * entries[y] * entries[z], nil
 		}
@@ -91,7 +96,7 @@ func checkEntriesPartTwo(entries []int) (int, error) {
 }
 
 func main() {
-	numbers, err := readInput("input.txt.txt")
+	numbers, err := readInput("./input.txt")
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -101,7 +106,7 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	fmt.Println("Part one:", answer)
+	fmt.Println("Part one:", answer, "\n-------")
 
 	answerTwo, err := checkEntriesPartTwo(numbers)
 	if err != nil {
