@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 )
@@ -21,9 +22,13 @@ type entry struct {
 	Read the filename and returns a list.
 */
 func readInput(filename string) ([]string, error) {
-	file, err := os.Open(filename)
+	filePath, err := filepath.Abs(filename)
 	if err != nil {
-		return []string{}, err
+		return nil, err
+	}
+	file, err := os.Open(filePath)
+	if err != nil {
+		return nil, err
 	}
 
 	scanner := bufio.NewScanner(file)
@@ -48,12 +53,12 @@ func checkPasswords(passwords []string) ([]entry, error) {
 
 		min, err := strconv.Atoi(strings.Split(s[0], "-")[0])
 		if err != nil {
-			return []entry{}, err
+			return nil, err
 		}
 
 		max, err := strconv.Atoi(strings.Split(s[0], "-")[1])
 		if err != nil {
-			return []entry{}, err
+			return nil, err
 		}
 
 		e := entry{
@@ -82,12 +87,12 @@ func checkPasswordsPartTwo(passwords []string) ([]entry, error) {
 
 		min, err := strconv.Atoi(strings.Split(s[0], "-")[0])
 		if err != nil {
-			return []entry{}, err
+			return nil, err
 		}
 
 		max, err := strconv.Atoi(strings.Split(s[0], "-")[1])
 		if err != nil {
-			return []entry{}, err
+			return nil, err
 		}
 
 		e := entry{
@@ -121,7 +126,7 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	fmt.Println("Part one:", len(answer))
+	fmt.Println("Part one:", len(answer), "\n-------")
 
 	answerTwo, err := checkPasswordsPartTwo(passwords)
 	if err != nil {
