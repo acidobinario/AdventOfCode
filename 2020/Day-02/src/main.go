@@ -116,7 +116,7 @@ func checkPasswordsPartTwo(passwords []string) ([]entry, error) {
 }
 
 func main() {
-	passwords, err := readInput("input.txt")
+	passwords, err := readInput("input-acido.txt")
 	if err != nil {
 		log.Fatalln(err)
 	}

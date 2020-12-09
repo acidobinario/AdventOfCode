@@ -72,7 +72,7 @@ func treeCounter(treeMap []string, right int, down int)(int, error) {
 }
 
 func main() {
-	treeMap, err := readInput("input.txt")
+	treeMap, err := readInput("input-acido.txt")
 	if err != nil {
 		log.Fatalln(err)
 	}
