@@ -24,13 +24,13 @@ func readInput(filename string) ([]string, error) {
 	scanner := bufio.NewScanner(file)
 	scanner.Split(bufio.ScanLines)
 
-	var passwords []string
+	var lines []string
 
 	for scanner.Scan() {
-		passwords = append(passwords, scanner.Text())
+		lines = append(lines, scanner.Text())
 	}
 
-	return passwords, nil
+	return lines, nil
 }
 
 /*	replaceAtIndex
