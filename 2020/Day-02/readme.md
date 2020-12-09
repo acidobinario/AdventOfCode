@@ -1,4 +1,4 @@
-# Advent Of Code - Day 02.
+# Advent Of Code - 2020 - [Day 02](https://adventofcode.com/2020/day/2).
 ### Password Philosophy
 Your flight departs in a few days from the coastal airport;
 the easiest way down to the coast from here is via [toboggan](https://en.wikipedia.org/wiki/Toboggan).
